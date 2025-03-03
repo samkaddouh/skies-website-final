@@ -5,6 +5,8 @@ import "./globals.css"
 import { LanguageProvider } from "@/contexts/LanguageContext"
 import ClientWrapper from "@/components/ClientWrapper"
 import LanguageAwareLayout from "@/components/LanguageAwareLayout"
+import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const robotoFlex = Roboto_Flex({
   subsets: ["latin"],
@@ -27,6 +29,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <LanguageAwareLayout>{children}</LanguageAwareLayout>
           </LanguageProvider>
         </ClientWrapper>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )
