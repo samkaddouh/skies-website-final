@@ -91,6 +91,7 @@ export default function QuotePage() {
         }));
 
         setIsErrorConfirmationIsOpen(false);
+        window.scrollTo(0, 0);
     }
     const CloseErorrConfirmation = () => {
         setIsErrorConfirmationIsOpen(false);
@@ -273,6 +274,7 @@ export default function QuotePage() {
                         ...prev,
                         currentStep: Math.min(prev.currentStep + 1, prev.maxSteps),
                     }));
+                    window.scrollTo(0, 0);
                 } else {
                     setIsErrorConfirmationIsOpen(true);
                     console.log(errors);
@@ -293,13 +295,15 @@ export default function QuotePage() {
             ...prev,
             currentStep: Math.min(prev.currentStep + 1, prev.maxSteps),
         }));
+        window.scrollTo(0, 0);
     };
 
     const prevStep = () => {
         setFormState((prev) => ({
             ...prev,
             currentStep: Math.max(prev.currentStep - 1, 1),
-        }))
+        }));
+        window.scrollTo(0, 0);
     }
 
     const handleResetStep2 = () => {

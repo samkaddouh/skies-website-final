@@ -33,8 +33,13 @@ const Footer: React.FC = () => {
                 </span>
               </li>
               <li className="flex items-center">
-                <Phone className="mr-2 h-5 w-5 flex-shrink-0" />
-                <span>{t("footerTel1")}</span>
+
+
+                <Link href={"tel:" + t("footerTel1")}>
+                    <Phone className="flex-shrink-0" style={{display: "inline"}} />
+                    <span>{t("footerTel1")}</span>
+                </Link>
+                
               </li>
               <li className="flex items-center">
                 <Printer className="mr-2 h-5 w-5 flex-shrink-0" />
