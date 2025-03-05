@@ -122,7 +122,7 @@ export function StepTwo({
                 />
 
                 <AddressDetails
-                  data={{ originAddress: data.originAddress, destinationAddress: data.destinationAddress }}
+                  formSatate ={formState}
                   handleInputChange={handleInputChange}
                   t={t}
                 />

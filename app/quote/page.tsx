@@ -224,8 +224,6 @@ export default function QuotePage() {
         const schema = formState.serviceType === "sea" ? SeaFreightSchema : BaseQuoteSchema;
         const validatedFields = schema.safeParse(formState.data);
 
-        console.log(validatedFields); // Debugging
-
         if (!validatedFields.success) {
             const errorsMap = new Map();
 
@@ -256,6 +254,7 @@ export default function QuotePage() {
     };
 
     const nextStep = () => {
+
         if (formState.currentStep === 1 && !validateStepOne()) {
             return; // Prevent navigation if validation fails
         }
@@ -277,7 +276,6 @@ export default function QuotePage() {
                     window.scrollTo(0, 0);
                 } else {
                     setIsErrorConfirmationIsOpen(true);
-                    console.log(errors);
                     setConfirmationErrors(errors);
                     return;
 

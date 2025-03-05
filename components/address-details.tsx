@@ -9,7 +9,7 @@ import { BaseQuoteSchema } from "@/app/quote/schema"
 import type { AddressDetailsProps } from "@/app/types/formState"
 
 export function AddressDetails({
-    data,
+    formSatate,
     handleInputChange,
     t,
 }: AddressDetailsProps) {
@@ -48,7 +48,7 @@ export function AddressDetails({
                     <Input
                         placeholder={t("originAddressPlaceholder")}
                         name="originAddress"
-                        value={data.originAddress || ""}
+                        value={formSatate.data.originAddress || ""}
                         onChange={handleInputChange}
                         required
                         onBlur={handleBlur}
@@ -64,7 +64,7 @@ export function AddressDetails({
                     <Input
                         placeholder={t("destinationAddressPlaceholder")}
                         name="destinationAddress"
-                        value={data.destinationAddress || ""}
+                        value={formSatate.data.destinationAddress || ""}
                         onChange={handleInputChange}
                         required
                         onBlur={handleBlur}

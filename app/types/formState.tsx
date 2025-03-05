@@ -162,10 +162,7 @@ export interface CargoDetailsProps {
 }
 
 export interface AddressDetailsProps {
-    data: {
-        originAddress?: string
-        destinationAddress?: string
-    }
+    formSatate: FormState,
     handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
     t: (key: TranslationKey) => string
 }
@@ -177,6 +174,8 @@ export const nameSort = ["name",
     "shippingTerm",
     "exactPickupAddress",
     "typeOfService",
+    "originAddress",
+    "destinationAddress",
     "isGeneral",
     "isHazardous",
     "deliveryUrgency",
@@ -197,8 +196,6 @@ export const nameSort = ["name",
     "value",
     "weight",
     "dimensions",
-    // "originAddress",
-    // "destinationAddress",
     "descriptionOfGoods",
     "additionalInfo"
 ];
