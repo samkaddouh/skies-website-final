@@ -260,7 +260,7 @@ export const translations = {
         footerTel1: "+961 1 456 000",
         footerFax1: "+961 1 456 002",
         footerEmail: "Email",
-        footerCopyright: "© 2025 Skies Shipping & Clearing. All Rights Reserved.",
+        footerCopyright: "© 2026 Skies Shipping & Clearing. All Rights Reserved.",
         workingHoursWeekdays: "Mon - Fri: 07:00 - 17:00",
         workingHoursSaturdaySunday: "Sat - Sun: Closed",
 
