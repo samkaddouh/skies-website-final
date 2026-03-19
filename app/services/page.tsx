@@ -157,66 +157,82 @@ function ServiceSection({
     posterSrc: string
   }
 }) {
-  const videoRef = useRef<HTMLVideoElement | null>(null)
-  const [, setIsLoaded] = useState(false)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [videoLoading, setVideoLoading] = useState(false)
+  const [videoReady, setVideoReady] = useState(false)
 
   useEffect(() => {
-    // Check if there's a 'section' query parameter in the URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const section = urlParams.get('section');
-
-    // If the section parameter exists, scroll to the corresponding element
+    const urlParams = new URLSearchParams(window.location.search)
+    const section = urlParams.get("section")
     if (section) {
-      const element = document.getElementById(section);
+      const element = document.getElementById(section)
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  }, []);
-
-
-  useEffect(() => {
-    setIsLoaded(true)
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && videoRef.current) {
-            videoRef.current.play().catch(() => { })
-          } else if (videoRef.current) {
-            videoRef.current.pause()
-          }
-        })
-      },
-      { threshold: 0.5 },
-    )
-
-    const tmpVideoRef = videoRef.current;
-    
-    if (tmpVideoRef) {
-      observer.observe(tmpVideoRef)
-    }
-    return () => {
-      if (tmpVideoRef) {
-        observer.unobserve(tmpVideoRef)
+        element.scrollIntoView({ behavior: "smooth" })
       }
     }
   }, [])
+
+  // Start loading the video only when the section enters the viewport
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVideoLoading(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.1 },
+    )
+    if (containerRef.current) observer.observe(containerRef.current)
+    return () => observer.disconnect()
+  }, [])
+
+  // Play/pause based on visibility once loading has started
+  useEffect(() => {
+    if (!videoLoading) return
+    const video = videoRef.current
+    if (!video) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {})
+        } else {
+          video.pause()
+        }
+      },
+      { threshold: 0.5 },
+    )
+    observer.observe(video)
+    return () => observer.disconnect()
+  }, [videoLoading])
 
   return (
     <section id={service.id} className="scroll-mt-20">
       <div className="bg-white rounded-lg shadow-sm overflow-hidden">
         <div className="grid md:grid-cols-2 items-start">
-          <div className="video-aspect-ratio-container">
+          <div ref={containerRef} className="video-aspect-ratio-container">
+            {/* Static poster — always visible until video is ready */}
+            <img
+              src={service.posterSrc}
+              alt={service.title}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+                videoReady ? "opacity-0 pointer-events-none" : "opacity-100"
+              }`}
+            />
+            {/* Video src is only set once the section is in view */}
             <video
               ref={videoRef}
-              className="w-full h-full object-cover"
+              src={videoLoading ? service.videoSrc : undefined}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+                videoReady ? "opacity-100" : "opacity-0"
+              }`}
               playsInline
               muted
               loop
-              poster={service.posterSrc}
-            >
-              <source src={service.videoSrc} type="video/mp4" />
-            </video>
+              onCanPlay={() => setVideoReady(true)}
+            />
           </div>
           <div className="p-8">
             <h2 className="text-2xl font-bold">{service.title}</h2>
