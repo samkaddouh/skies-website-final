@@ -6,10 +6,10 @@ import Link from "next/link"
 import Image from "next/image"
 import { useLanguage } from "@/contexts/LanguageContext"
 import { translations, type TranslationKey } from "@/utils/translations"
-import { Menu, X } from "lucide-react"
+import { Menu, X, LogIn } from "lucide-react"
 
 const Header: React.FC = () => {
-  const { language, setLanguage, dir } = useLanguage()
+  const { language, setLanguage } = useLanguage()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
 
@@ -21,87 +21,127 @@ const Header: React.FC = () => {
 
   const navItems = [
     { href: "/", label: "home" },
-    { href: "/about", label: "about" },
     { href: "/services", label: "services" },
+    { href: "/about", label: "about" },
     { href: "/quote", label: "getQuote" },
     { href: "/contact", label: "contact" },
   ]
 
   const toggleLanguage = () => {
-    return alert("Coming Soon")
     setLanguage(language === "en" ? "ar" : "en")
   }
 
   if (!isMounted) {
-    return null // or a loading placeholder
+    return null
   }
 
   return (
-    <header className="bg-white shadow-md md:shadow-none md:border-b border-gray-200 sticky md:static top-0 z-50">
-      <div className="container mx-auto px-4 py-2">
-        <div className={`flex justify-between items-center ${dir === "rtl" ? "flex-row-reverse" : ""}`}>
-          <Link href="/" className="flex items-center">
+    <header className="bg-white/95 backdrop-blur border-b border-slate-200 sticky top-0 z-50">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="flex justify-between items-center h-16 md:h-20">
+          <Link href="/" className="flex items-center shrink-0">
             <Image
               src="/Skies_Logo.png"
               alt="Skies Shipping & Clearing"
               width={215}
               height={125}
-              className={`${dir === "rtl" ? "ml-2" : "mr-2"} h-20 w-auto md:h-24`}
+              className="h-12 w-auto md:h-16"
+              priority
             />
           </Link>
-          <nav className="hidden md:block">
-            <ul className={`flex ${dir === "rtl" ? "space-x-reverse space-x-8" : "space-x-8"} items-center`}>
+
+          <nav className="hidden lg:block">
+            <ul className="flex gap-7 items-center">
               {navItems.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-gray-800 hover:text-primary-color transition-colors relative group text-lg"
+                    className="text-slate-700 hover:text-sky-600 transition-colors text-[15px] font-medium"
                   >
                     {t(item.label as TranslationKey)}
-                    <span
-                      className={`absolute bottom-0 ${dir === "rtl" ? "right-0" : "left-0"} w-full h-0.5 bg-primary-color scale-x-0 group-hover:scale-x-100 transition-transform ${dir === "rtl" ? "origin-right" : "origin-left"}`}
-                    ></span>
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link
+                  href="/demo"
+                  className="text-sky-600 hover:text-sky-500 transition-colors text-[15px] font-semibold"
+                >
+                  {language === "ar" ? "احجز عرضاً" : "Book a Demo"}
+                </Link>
+              </li>
             </ul>
           </nav>
-          <div className="hidden md:flex items-center">
+
+          <div className="hidden lg:flex items-center gap-3">
             <button
               onClick={toggleLanguage}
-              className="bg-primary-color text-white px-4 py-2 rounded hover:bg-primary-color/90 transition-colors"
+              className="text-slate-600 hover:text-slate-900 px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors text-sm font-medium"
             >
               {language === "en" ? "عربي" : "English"}
             </button>
+            <a
+              href="https://skieslogistics.com/login"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-slate-950 text-white px-5 py-2.5 rounded-xl hover:bg-slate-800 transition-colors text-sm font-semibold"
+            >
+              <LogIn size={16} />
+              {language === "ar" ? "دخول العملاء" : "Client Login"}
+            </a>
           </div>
-          <button className="md:hidden text-primary-color" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-            {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+
+          <button
+            className="lg:hidden text-slate-700 p-2"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Menu"
+          >
+            {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
           </button>
         </div>
       </div>
+
       {mobileMenuOpen && (
-        <div className="md:hidden">
-          <nav className="bg-white px-4 pt-2 pb-4 shadow-lg">
-            <ul className="space-y-4">
+        <div className="lg:hidden border-t border-slate-100">
+          <nav className="bg-white px-6 pt-3 pb-6">
+            <ul className="space-y-1">
               {navItems.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className={`block py-2 text-gray-800 hover:text-primary-color transition-colors relative group ${dir === "rtl" ? "text-right" : "text-left"} text-lg`}
+                    className="block py-2.5 text-slate-800 hover:text-sky-600 transition-colors font-medium"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {t(item.label as TranslationKey)}
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link
+                  href="/demo"
+                  className="block py-2.5 text-sky-600 font-semibold"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {language === "ar" ? "احجز عرضاً" : "Book a Demo"}
+                </Link>
+              </li>
             </ul>
-            <div className="mt-6">
+            <div className="mt-4 space-y-3">
+              <a
+                href="https://skieslogistics.com/login"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 w-full bg-slate-950 text-white px-4 py-3 rounded-xl font-semibold"
+              >
+                <LogIn size={17} />
+                {language === "ar" ? "دخول العملاء" : "Client Login"}
+              </a>
               <button
                 onClick={() => {
                   toggleLanguage()
                   setMobileMenuOpen(false)
                 }}
-                className="w-full bg-primary-color text-white px-4 py-2 rounded hover:bg-primary-color/90 transition-colors"
+                className="w-full text-slate-600 px-4 py-2.5 rounded-xl border border-slate-200 font-medium"
               >
                 {language === "en" ? "عربي" : "English"}
               </button>
@@ -114,4 +154,3 @@ const Header: React.FC = () => {
 }
 
 export default Header
-

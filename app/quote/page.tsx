@@ -174,7 +174,8 @@ export default function QuotePage() {
             })
 
             if (formState.serviceType) {
-                await sendQuote(formState.serviceType, data.join('\n\t'))
+                const honeypot = (form.elements.namedItem("website") as HTMLInputElement | null)?.value
+                await sendQuote(formState.serviceType, data.join('\n\t'), honeypot)
             } else {
                 throw new Error("Service type is required");
             }
@@ -377,14 +378,12 @@ export default function QuotePage() {
 
     return (
         <div className="min-h-screen bg-white flex flex-col">
-            <section className="relative py-8 md:py-12 lg:py-16 xl:py-20 overflow-hidden">
-                <div className="absolute inset-0 bg-[#828282]">
-                    <div className="absolute inset-0"></div>
-                </div>
-                <div className="container relative mx-auto px-6 sm:px-8">
-                    <div className="max-w-3xl">
-                        <h1 className="animate-subtle-jump text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-[#f8f9fa]">{t("getQuoteTitle")}</h1>
-                        <p className="text-lg sm:text-xl md:text-2xl mb-6 text-gray-100">{t("getQuoteDescription")}</p>
+            <section className="relative overflow-hidden bg-slate-950">
+                <div className="absolute -top-40 left-1/2 -translate-x-1/2 h-[400px] w-[700px] rounded-full bg-sky-500/20 blur-3xl" />
+                <div className="container relative mx-auto px-6 sm:px-8 py-14 md:py-16">
+                    <div className="max-w-2xl">
+                        <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white">{t("getQuoteTitle")}</h1>
+                        <p className="mt-5 text-lg text-slate-300 leading-relaxed">{t("getQuoteDescription")}</p>
                     </div>
                 </div>
             </section>
@@ -416,6 +415,15 @@ export default function QuotePage() {
                                 </Alert>
                             )}
                             <form onSubmit={handleSubmit} className="space-y-6">
+                                {/* Honeypot — invisible to humans */}
+                                <input
+                                    type="text"
+                                    name="website"
+                                    tabIndex={-1}
+                                    autoComplete="off"
+                                    aria-hidden="true"
+                                    className="absolute -left-[9999px] h-0 w-0 opacity-0"
+                                />
                                 {renderStep()}
                             </form>
                         </CardContent>

@@ -11,7 +11,7 @@ module.exports = {
   	extend: {
   		fontFamily: {
   			sans: [
-  				'var(--font-roboto-flex)',
+  				'var(--font-inter)',
   				'sans-serif'
   			]
   		},

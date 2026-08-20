@@ -3,28 +3,33 @@
 import nodemailer from "nodemailer"
 import { z } from "zod"
 
+const LEADS_INBOX = "sales@skieslb.com"
 
-export async function sendQuote(serviceType: string, data: string) {
+function createTransporter() {
+    return nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS,
+        },
+    })
+}
+
+export async function sendQuote(serviceType: string, data: string, honeypot?: string) {
+    // Honeypot filled → bot. Pretend success, send nothing.
+    if (honeypot) return { success: true }
+
     try {
-        const transporter = nodemailer.createTransport({
-            service: "gmail",
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS,
-            },
-        })
+        const transporter = createTransporter()
 
-        // Prepare email content
         const mailOptions = {
             from: process.env.EMAIL_USER,
-            to: process.env.EMAIL_USER,
+            to: LEADS_INBOX,
             subject: `New Quote Request - ${serviceType.toUpperCase()} Freight`,
             html: `
         <h2>New Quote Request</h2> ${data}`,
         }
 
-        // console.log(mailOptions);
-        // Send the email
         await transporter.sendMail(mailOptions)
 
         return { success: true }
@@ -35,9 +40,6 @@ export async function sendQuote(serviceType: string, data: string) {
         }
     }
 }
-
-
-
 
 // Define the validation schema
 const ContactFormSchema = z.object({
@@ -57,9 +59,12 @@ const ContactFormSchema = z.object({
 type ContactFormData = z.infer<typeof ContactFormSchema>
 
 export async function sendEmail(formData: FormData) {
+    // Honeypot filled → bot. Pretend success, send nothing.
+    if (formData.get("website")) return { success: true }
+
     try {
-        // Convert FormData to a regular object
         const rawFormData = Object.fromEntries(formData.entries())
+        delete rawFormData.website
 
         // Validate the form data
         const validatedFields = ContactFormSchema.safeParse(rawFormData)
@@ -73,19 +78,11 @@ export async function sendEmail(formData: FormData) {
 
         const data = validatedFields.data as ContactFormData
 
-        // Create email transporter
-        const transporter = nodemailer.createTransport({
-            service: "gmail",
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS,
-            },
-        })
+        const transporter = createTransporter()
 
-        // Prepare email content
         const mailOptions = {
             from: process.env.EMAIL_USER,
-            to: [process.env.EMAIL_USER, process.env.RECIPIENT1 ?? null].filter((e) => e).join(", "), // Add multiple recipients here
+            to: LEADS_INBOX,
             subject: "New Contact Form Submission",
             html: `
         <h2>New Contact Form Submission</h2>
@@ -97,7 +94,6 @@ export async function sendEmail(formData: FormData) {
         <p>${data.message.replace(/\n/g, "<br>")}</p>`,
         }
 
-        // Send the email
         await transporter.sendMail(mailOptions)
 
         return { success: true }
@@ -109,3 +105,54 @@ export async function sendEmail(formData: FormData) {
     }
 }
 
+const DemoRequestSchema = z.object({
+    name: z.string().min(2),
+    email: z.string().email(),
+    phone: z.string().regex(/^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/),
+    company: z.string().optional(),
+    preferredTime: z.string().optional(),
+    notes: z.string().optional(),
+})
+
+export async function sendDemoRequest(formData: FormData) {
+    // Honeypot filled → bot. Pretend success, send nothing.
+    if (formData.get("website")) return { success: true }
+
+    try {
+        const rawFormData = Object.fromEntries(formData.entries())
+        delete rawFormData.website
+
+        const validatedFields = DemoRequestSchema.safeParse(rawFormData)
+        if (!validatedFields.success) {
+            return { error: validatedFields.error.issues[0].message }
+        }
+
+        const data = validatedFields.data
+
+        const transporter = createTransporter()
+
+        const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: LEADS_INBOX,
+            subject: `New Live Demo Request — ${data.name}${data.company ? ` (${data.company})` : ""}`,
+            html: `
+        <h2>New Live Demo Request</h2>
+        <p>Schedule a Google Meet to walk them through the client portal.</p>
+        <p><strong>Name:</strong> ${data.name}</p>
+        <p><strong>Email:</strong> ${data.email}</p>
+        <p><strong>Phone:</strong> ${data.phone}</p>
+        ${data.company ? `<p><strong>Company:</strong> ${data.company}</p>` : ""}
+        ${data.preferredTime ? `<p><strong>Preferred day/time:</strong> ${data.preferredTime}</p>` : ""}
+        ${data.notes ? `<p><strong>Notes:</strong> ${data.notes.replace(/\n/g, "<br>")}</p>` : ""}`,
+        }
+
+        await transporter.sendMail(mailOptions)
+
+        return { success: true }
+    } catch (error) {
+        console.error("Demo request error:", error)
+        return {
+            error: "An error occurred while sending the request. Please try again.",
+        }
+    }
+}
