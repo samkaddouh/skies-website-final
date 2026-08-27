@@ -90,7 +90,7 @@ const Header: React.FC = () => {
               {language === "ar" ? "دخول العملاء" : "Client Login"}
             </a>
             <Link
-              href="/demo"
+              href="/demo#book"
               className="inline-flex items-center bg-slate-950 text-white px-5 py-2.5 rounded-xl hover:bg-slate-800 transition-colors text-sm font-semibold"
             >
               {language === "ar" ? "ابدأ الآن" : "Get Started"}
@@ -134,7 +134,7 @@ const Header: React.FC = () => {
             </ul>
             <div className="mt-4 space-y-3">
               <Link
-                href="/demo"
+                href="/demo#book"
                 className="flex items-center justify-center w-full bg-slate-950 text-white px-4 py-3 rounded-xl font-semibold"
                 onClick={() => setMobileMenuOpen(false)}
               >

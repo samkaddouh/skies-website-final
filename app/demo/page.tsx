@@ -119,7 +119,7 @@ export default function DemoPage() {
       </section>
 
       {/* Form */}
-      <section className="py-14 md:py-20">
+      <section id="book" className="scroll-mt-24 py-14 md:py-20">
         <div className="container mx-auto px-6 sm:px-8">
           <div className="max-w-2xl mx-auto rounded-3xl ring-1 ring-slate-200 shadow-lg shadow-slate-900/5 p-6 sm:p-10">
             <h2 className="text-2xl font-bold text-slate-950">{t.formTitle}</h2>
