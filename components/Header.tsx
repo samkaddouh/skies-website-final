@@ -84,11 +84,17 @@ const Header: React.FC = () => {
               href="https://skieslogistics.com/login"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-slate-950 text-white px-5 py-2.5 rounded-xl hover:bg-slate-800 transition-colors text-sm font-semibold"
+              className="inline-flex items-center gap-1.5 text-slate-600 hover:text-slate-900 px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors text-sm font-medium"
             >
-              <LogIn size={16} />
+              <LogIn size={15} />
               {language === "ar" ? "دخول العملاء" : "Client Login"}
             </a>
+            <Link
+              href="/quote"
+              className="inline-flex items-center bg-slate-950 text-white px-5 py-2.5 rounded-xl hover:bg-slate-800 transition-colors text-sm font-semibold"
+            >
+              {language === "ar" ? "ابدأ الآن" : "Get Started"}
+            </Link>
           </div>
 
           <button
@@ -127,13 +133,20 @@ const Header: React.FC = () => {
               </li>
             </ul>
             <div className="mt-4 space-y-3">
+              <Link
+                href="/quote"
+                className="flex items-center justify-center w-full bg-slate-950 text-white px-4 py-3 rounded-xl font-semibold"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {language === "ar" ? "ابدأ الآن" : "Get Started"}
+              </Link>
               <a
                 href="https://skieslogistics.com/login"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 w-full bg-slate-950 text-white px-4 py-3 rounded-xl font-semibold"
+                className="flex items-center justify-center gap-2 w-full text-slate-600 px-4 py-3 rounded-xl border border-slate-200 font-medium"
               >
-                <LogIn size={17} />
+                <LogIn size={16} />
                 {language === "ar" ? "دخول العملاء" : "Client Login"}
               </a>
               <button
