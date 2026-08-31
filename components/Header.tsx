@@ -43,8 +43,8 @@ const Header: React.FC = () => {
             <Image
               src="/Skies_Logo.png"
               alt="Skies Shipping & Clearing"
-              width={215}
-              height={125}
+              width={758}
+              height={530}
               className="h-12 w-auto md:h-16"
               priority
             />

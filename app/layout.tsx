@@ -21,9 +21,9 @@ export const metadata: Metadata = {
     template: "%s | Skies Shipping & Clearing",
   },
   description:
-    "Licensed customs clearing and freight company at the Port of Beirut and Beirut Airport. Air & sea freight, customs clearance, and a client portal with live shipment tracking. We Move It. You Track It.",
+    "Licensed customs clearing and freight company at the Port of Beirut and Beirut Airport. Air & sea freight, customs clearance, and a client portal with live shipment tracking. We Move It, You Track It.",
   openGraph: {
-    title: "Skies Shipping & Clearing — We Move It. You Track It.",
+    title: "Skies Shipping & Clearing — We Move It, You Track It.",
     description:
       "Air & Sea Freight · Customs Clearance · Live Tracking. The first clearing company in Lebanon with a real-time client portal.",
     url: "https://www.skieslb.com",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Skies Shipping & Clearing — We Move It. You Track It.",
+    title: "Skies Shipping & Clearing — We Move It, You Track It.",
     description: "Air & Sea Freight · Customs Clearance · Live Tracking — Beirut, Lebanon.",
   },
 }

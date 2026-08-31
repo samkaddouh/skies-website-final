@@ -21,7 +21,7 @@ import {
 const copy = {
   en: {
     heroBadge: "Licensed customs broker — Port of Beirut & Beirut Airport",
-    heroTitle1: "We Move It.",
+    heroTitle1: "We Move It,",
     heroTitle2: "You Track It.",
     heroSub:
       "Air & Sea Freight · Customs Clearance · Live Tracking. Every shipment gets a live status in your client portal — with an email in your inbox at every stage.",
@@ -107,7 +107,7 @@ const copy = {
   },
   ar: {
     heroBadge: "مخلّص جمركي مرخّص — مرفأ بيروت ومطار بيروت",
-    heroTitle1: "نحن ننقلها.",
+    heroTitle1: "نحن ننقلها،",
     heroTitle2: "أنت تتابعها.",
     heroSub:
       "شحن جوي وبحري · تخليص جمركي · تتبّع مباشر. كل شحنة لها حالة مباشرة في بوابة العملاء — مع بريد إلكتروني إلى صندوقك في كل مرحلة.",

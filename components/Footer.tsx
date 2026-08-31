@@ -95,7 +95,7 @@ const Footer: React.FC = () => {
             © {new Date().getFullYear()} Skies Shipping &amp; Clearing.{" "}
             {ar ? "جميع الحقوق محفوظة." : "All rights reserved."}
           </p>
-          <p className="font-medium text-slate-400">{ar ? "نحن ننقلها. أنت تتابعها." : "We Move It. You Track It."}</p>
+          <p className="font-medium text-slate-400">{ar ? "نحن ننقلها، أنت تتابعها." : "We Move It, You Track It."}</p>
         </div>
       </div>
     </footer>
