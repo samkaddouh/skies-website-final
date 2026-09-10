@@ -221,9 +221,9 @@ export default function ClientHomeContent() {
                 {t.heroBadge}
               </span>
               <h1 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.08]">
-                {t.heroTitle1}
+                <span className="text-sky-400">{t.heroTitle1}</span>
                 <br />
-                <span className="text-sky-400">{t.heroTitle2}</span>
+                {t.heroTitle2}
               </h1>
               <p className="mt-6 text-base sm:text-lg text-slate-300 leading-relaxed">{t.heroSub}</p>
               <div className="mt-8 flex flex-wrap gap-3">
