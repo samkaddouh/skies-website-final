@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     title: "Get a Shipping & Customs Clearance Quote — Beirut | Skies Shipping & Clearing",
     description:
       "Free quote for air & sea freight and customs clearance in Beirut, Lebanon. Fast response, transparent pricing.",
-    url: "https://www.skieslb.com/quote",
+    url: "https://www.skies-lb.com/quote",
   },
 }
 

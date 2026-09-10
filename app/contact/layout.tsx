@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     title: "Contact Skies Shipping & Clearing — Beirut, Lebanon",
     description:
       "Talk to a licensed clearing company in Beirut: +961 1 456 000 · sales@skieslb.com.",
-    url: "https://www.skieslb.com/contact",
+    url: "https://www.skies-lb.com/contact",
   },
 }
 

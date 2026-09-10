@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     title: "Live Shipment Tracking Demo | Skies Shipping & Clearing",
     description:
       "Real-time shipment tracking for freight and customs clearance in Beirut. Book a personal demo of the client portal.",
-    url: "https://www.skieslb.com/demo",
+    url: "https://www.skies-lb.com/demo",
   },
 }
 

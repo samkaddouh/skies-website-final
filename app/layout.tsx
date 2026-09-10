@@ -15,7 +15,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.skieslb.com"),
+  metadataBase: new URL("https://www.skies-lb.com"),
   title: {
     default: "Customs Clearance & Freight with Live Tracking — Beirut, Lebanon | Skies Shipping & Clearing",
     template: "%s | Skies Shipping & Clearing",
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     title: "Skies Shipping & Clearing — We Move It, You Track It.",
     description:
       "Air & Sea Freight · Customs Clearance · Live Tracking. The first clearing company in Lebanon with a real-time client portal.",
-    url: "https://www.skieslb.com",
+    url: "https://www.skies-lb.com",
     siteName: "Skies Shipping & Clearing",
     locale: "en_US",
     type: "website",
@@ -72,15 +72,15 @@ const structuredData = {
   "@graph": [
     {
       "@type": "LocalBusiness",
-      "@id": "https://www.skieslb.com/#business",
+      "@id": "https://www.skies-lb.com/#business",
       name: "Skies Shipping & Clearing",
       alternateName: "Skies Lebanon",
       slogan: "We Move It, You Track It.",
       description:
         "Licensed customs clearing and freight forwarding company in Beirut, Lebanon. Air & sea freight, customs clearance at the Port of Beirut and Beirut Airport, with live shipment tracking through a client portal.",
-      url: "https://www.skieslb.com",
-      logo: "https://www.skieslb.com/Skies_Logo.png",
-      image: "https://www.skieslb.com/Skies_Logo.png",
+      url: "https://www.skies-lb.com",
+      logo: "https://www.skies-lb.com/Skies_Logo.png",
+      image: "https://www.skies-lb.com/Skies_Logo.png",
       telephone: "+961 1 456 000",
       email: "sales@skieslb.com",
       address: {
@@ -139,10 +139,10 @@ const structuredData = {
     },
     {
       "@type": "WebSite",
-      "@id": "https://www.skieslb.com/#website",
-      url: "https://www.skieslb.com",
+      "@id": "https://www.skies-lb.com/#website",
+      url: "https://www.skies-lb.com",
       name: "Skies Shipping & Clearing",
-      publisher: { "@id": "https://www.skieslb.com/#business" },
+      publisher: { "@id": "https://www.skies-lb.com/#business" },
       inLanguage: ["en", "ar"],
     },
   ],

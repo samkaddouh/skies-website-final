@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     title: "About Skies Shipping & Clearing — Beirut, Lebanon",
     description:
       "A licensed clearing company in Beirut that works like a tech company: transparent pricing and live shipment tracking.",
-    url: "https://www.skieslb.com/about",
+    url: "https://www.skies-lb.com/about",
   },
 }
 
