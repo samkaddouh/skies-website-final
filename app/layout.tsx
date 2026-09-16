@@ -3,7 +3,6 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
 import { LanguageProvider } from "@/contexts/LanguageContext"
-import ClientWrapper from "@/components/ClientWrapper"
 import LanguageAwareLayout from "@/components/LanguageAwareLayout"
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
@@ -156,11 +155,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
-        <ClientWrapper>
-          <LanguageProvider>
-            <LanguageAwareLayout>{children}</LanguageAwareLayout>
-          </LanguageProvider>
-        </ClientWrapper>
+        <LanguageProvider>
+          <LanguageAwareLayout>{children}</LanguageAwareLayout>
+        </LanguageProvider>
         <Analytics />
         <SpeedInsights />
       </body>
