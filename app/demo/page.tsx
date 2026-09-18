@@ -17,10 +17,13 @@ const copy = {
       { icon: CalendarClock, text: "We confirm your slot by email the same day" },
     ],
     formTitle: "Book your live demo",
+    formNote:
+      "Live demos are reserved for registered companies — the session is personalized to your actual shipments and workflow.",
     name: "Name",
     email: "Email",
     phone: "Phone",
-    company: "Company (optional)",
+    company: "Company name",
+    companyWebsite: "Company website or LinkedIn (optional)",
     preferredTime: "Preferred day & time",
     preferredTimePlaceholder: "e.g. Tuesday afternoon, or any morning",
     notes: "Anything specific you want to see? (optional)",
@@ -28,7 +31,7 @@ const copy = {
     submitting: "Sending...",
     success: "Request received — we'll email you shortly to confirm your Google Meet.",
     error: "Something went wrong. Please try again or call +961 1 456 000.",
-    required: "Please fill in your name, email and phone.",
+    required: "Please fill in your name, email, phone and company name.",
   },
   ar: {
     title: "شاهد البوابة مباشرة",
@@ -39,10 +42,12 @@ const copy = {
       { icon: CalendarClock, text: "نؤكد موعدك بالبريد الإلكتروني في اليوم نفسه" },
     ],
     formTitle: "احجز عرضك المباشر",
+    formNote: "العروض المباشرة مخصّصة للشركات المسجّلة — تُصمَّم الجلسة وفق شحناتك وسير عملك الفعلي.",
     name: "الاسم",
     email: "البريد الإلكتروني",
     phone: "الهاتف",
-    company: "الشركة (اختياري)",
+    company: "اسم الشركة",
+    companyWebsite: "موقع الشركة أو LinkedIn (اختياري)",
     preferredTime: "اليوم والوقت المفضّلان",
     preferredTimePlaceholder: "مثلاً: الثلاثاء بعد الظهر، أو أي صباح",
     notes: "هل هناك شيء محدد تريد رؤيته؟ (اختياري)",
@@ -50,7 +55,7 @@ const copy = {
     submitting: "جارٍ الإرسال...",
     success: "تم استلام الطلب — سنراسلك قريباً لتأكيد موعد Google Meet.",
     error: "حدث خطأ. حاول مجدداً أو اتصل على ‎+961 1 456 000.",
-    required: "يرجى إدخال الاسم والبريد الإلكتروني والهاتف.",
+    required: "يرجى إدخال الاسم والبريد الإلكتروني والهاتف واسم الشركة.",
   },
 }
 
@@ -65,7 +70,7 @@ export default function DemoPage() {
     const form = event.currentTarget
     const formData = new FormData(form)
 
-    if (!formData.get("name") || !formData.get("email") || !formData.get("phone")) {
+    if (!formData.get("name") || !formData.get("email") || !formData.get("phone") || !formData.get("company")) {
       setStatus("error")
       setErrorMsg(t.required)
       return
@@ -123,6 +128,7 @@ export default function DemoPage() {
         <div className="container mx-auto px-6 sm:px-8">
           <div className="max-w-2xl mx-auto rounded-3xl ring-1 ring-slate-200 shadow-lg shadow-slate-900/5 p-6 sm:p-10">
             <h2 className="text-2xl font-bold text-slate-950">{t.formTitle}</h2>
+            <p className="mt-2 text-sm text-slate-500">{t.formNote}</p>
 
             {status === "success" && (
               <div className="mt-5 flex items-start gap-3 rounded-xl bg-green-50 ring-1 ring-green-200 px-4 py-3 text-sm text-green-700">
@@ -168,8 +174,14 @@ export default function DemoPage() {
                   <input name="phone" type="tel" required className={inputClass} />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1.5">{t.company}</label>
-                  <input name="company" type="text" className={inputClass} />
+                  <label className="block text-sm font-medium text-slate-700 mb-1.5">
+                    {t.company} <span className="text-red-500">*</span>
+                  </label>
+                  <input name="company" type="text" required className={inputClass} />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1.5">{t.companyWebsite}</label>
+                  <input name="companyWebsite" type="text" placeholder="https://" className={inputClass} />
                 </div>
               </div>
 

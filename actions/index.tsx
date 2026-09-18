@@ -109,7 +109,8 @@ const DemoRequestSchema = z.object({
     name: z.string().min(2),
     email: z.string().email(),
     phone: z.string().regex(/^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/),
-    company: z.string().optional(),
+    company: z.string().min(2, "Company name is required"),
+    companyWebsite: z.string().optional(),
     preferredTime: z.string().optional(),
     notes: z.string().optional(),
 })
@@ -134,14 +135,15 @@ export async function sendDemoRequest(formData: FormData) {
         const mailOptions = {
             from: process.env.EMAIL_USER,
             to: LEADS_INBOX,
-            subject: `New Live Demo Request — ${data.name}${data.company ? ` (${data.company})` : ""}`,
+            subject: `New Live Demo Request — ${data.name} (${data.company})`,
             html: `
         <h2>New Live Demo Request</h2>
         <p>Schedule a Google Meet to walk them through the client portal.</p>
         <p><strong>Name:</strong> ${data.name}</p>
         <p><strong>Email:</strong> ${data.email}</p>
         <p><strong>Phone:</strong> ${data.phone}</p>
-        ${data.company ? `<p><strong>Company:</strong> ${data.company}</p>` : ""}
+        <p><strong>Company:</strong> ${data.company}</p>
+        ${data.companyWebsite ? `<p><strong>Company website/LinkedIn:</strong> ${data.companyWebsite}</p>` : ""}
         ${data.preferredTime ? `<p><strong>Preferred day/time:</strong> ${data.preferredTime}</p>` : ""}
         ${data.notes ? `<p><strong>Notes:</strong> ${data.notes.replace(/\n/g, "<br>")}</p>` : ""}`,
         }
